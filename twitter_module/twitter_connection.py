@@ -1,4 +1,5 @@
 import tweepy
+import pandas as pd
 
 
 class Twitter:
@@ -7,6 +8,11 @@ class Twitter:
         self.bearer_token = bearer_token
 
     def get_connection(self):
+        '''
+        this function is the one that allows to get connection to API twitter based on bearer token
+        documentation: https://docs.tweepy.org/en/stable/client.html
+        :return: the client that allows to create delete, get, post and put queries
+        '''
 
         bearer_token = self.bearer_token
         # bearer_token = 'AAAAAAAAAAAAAAAAAAAAAHAhdQEAAAAAqIbsC3QZW5jWqDu8%2FF2g%2BhTStug%3Dq4S5oh53c0j6dlYJRpsVwsKdHe6xuqDIECKtwHonL9g8zAshi0'
@@ -15,24 +21,71 @@ class Twitter:
 
         return client
 
-    def search_tweet(self, text_to_seearch):
-
+    def search_recent_tweet(self, text_to_seearch):
         # Search Recent Tweets
         # This endpoint/method returns Tweets from the last seven days
 
         twitter_connection = self.get_connection()
 
-        response = twitter_connection.search_recent_tweets(text_to_seearch)
+        response = twitter_connection.search_recent_tweets(
+            text_to_seearch,
+            tweet_fields=['lang', 'created_at', 'public_metrics', 'entities'],
+            user_fields=['profile_image_url'],
+            media_fields=['url'],
+            expansions=['author_id', 'attachments.media_keys'])
         # The method returns a Response object, a named tuple with data, includes,
-
 
         # In this case, the data field of the Response returned is a list of Tweet
         # objects
-        tweets = response.data
+        no_tweets = len(response.data)
 
-        response_dict ={}
+        column_names = ["account_id",
+                        "account_id_check",
+                        "tweet_id",
+                        "account_username",
+                        "account_name",
+                        "tweet_text",
+                        "tweet_created_at",
+                        "tweet_language",
+                        "retweet_count",
+                        "reply_count",
+                        "like_count",
+                        "quote_count",
+                        "profile_image_url"]
+
+        twitter_response_df = pd.DataFrame(columns=column_names)
+
         # Each Tweet object has default ID and text fields
-        for tweet in tweets:
-            response_dict[tweet.id] = tweet.text
+        for index in range(no_tweets):
+            account_username = response.includes["users"][0].username
+            account_name = response.includes["users"][0].name
+            account_id = response.includes["users"][0].id
+            profile_image_url = response.includes["users"][0].profile_image_url
+            tweet_id = response.data[0].id
+            tweet_text = response.data[0].text
+            tweet_created_at = str(response.data[0].created_at)
+            tweet_language = response.data[0].lang
+            account_id_check = response.data[0].author_id
+            retweet_count = response.data[0].public_metrics['retweet_count']
+            reply_count = response.data[0].public_metrics['reply_count']
+            like_count = response.data[0].public_metrics['like_count']
+            quote_count = response.data[0].public_metrics['quote_count']
 
-        return response_dict
+            row = [account_id,
+                   account_id_check,
+                   tweet_id,
+                   account_username,
+                   account_name,
+                   tweet_text,
+                   tweet_created_at,
+                   tweet_language,
+                   retweet_count,
+                   reply_count,
+                   like_count,
+                   quote_count,
+                   profile_image_url]
+
+            twitter_response_df_length = len(twitter_response_df)
+            twitter_response_df.loc[twitter_response_df_length] = row
+
+        return response, twitter_response_df

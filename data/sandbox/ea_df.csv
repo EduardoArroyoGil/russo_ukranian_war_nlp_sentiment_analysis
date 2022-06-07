@@ -1,0 +1,100 @@
+,tweet_id,raw_tweet,language_respond,language,transalted_tweet,foul_language,emotional_analysis_respond,emotional_analysis
+0,1533932723001245697,RT @MilitarSemHype: Um carro de combate Americano se depara com uma coluna Russa na Síria. Podemos ver 2 Pantsir e 1 BTR russo. Veículos ru…,"
+
+This tweet is written in English.",English,"
+
+""An American combat vehicle encounters a Russian column in Syria. We can see 2 Pantsir and 1 BTR Russian. Russian vehicles are not very common in this area.""","
+
+The following tweet contains language that is considered harmful, such as violence or hatred.","
+
+The emotion in this tweet is curiosity.",curiosity
+1,1533932718450409472,RT @EmmaRincon: Letonia ha declarado que retirará del aire 80 canales de televisión rusos hasta que finalice la guerra de Rusia en Ucrania…,"
+
+The tweet is written in Spanish.",Spanish,"
+
+""Latvia has declared that it will take 80 Russian television channels off the air until Russia's war in Ukraine is over...""","
+
+The following tweet contains foul language.","
+
+The following twitt transmits the emotion of anger.",anger
+2,1533932713345961984,RT @PabloIglesias: La guerra de Ucrania y el papel de la OTAN han generado un debate muy intenso en la izquierda. Aquí van algunos comentar…,"
+
+Spanish",Spanish,"
+
+""The war in Ukraine and the role of NATO have generated a very intense debate on the left. Here are some comments ...""","
+
+The war in Ukraine and the role of NATO have generated a very intense debate on the left. Here are some comments from people on the left.","
+
+Intense",Intense
+3,1533932712482021376,RT @ernestosamperp: El odio de @IvanDuque por Venezuela ha resultado rentable para ciertos empresarios. Con el cierre de Monómeros Colombo…,"
+
+Spanish",Spanish,"
+
+""The hate of @IvanDuque for Venezuela has been profitable for certain businessmen. With the closure of Monómeros Colombo ...""","
+
+The following tweet contains language that is considered to be Slogistic in nature.","
+
+Hate",Hate
+4,1533932711349571589,"RT @Ana_Guderian_: ""Der Spiegel"" revela la razón por la que Alemania no quiere enviar tanques a Ucrania; porque podrían ser usados para ent…","
+
+The tweet is written in German.",German,"
+
+""Der Spiegel"" reveals the reason why Germany does not want to send tanks to Ukraine; because they could be used to enter Russia.","
+
+The following tweet contains foul language:
+
+""Der Spiegel"" reveals the reason why Germany does not want to send tanks to Ukraine; because they could be used to enter Russia.","
+
+fear",fear
+5,1533932707499200514,RT @HoyPalestina: El chiste del día: la UEFA cancela el partido entre Israel y Rusia por la guerra de Rusia contra Ucrania. https://t.co/3Y…,"
+
+Spanish",Spanish,"
+
+The joke of the day: UEFA cancels the match between Israel and Russia because of Russia's war against Ukraine.","
+
+The following tweet does not contain foul language.","
+
+Hilarious",Hilarious
+6,1533932706983182336,RT @HoyPalestina: El chiste del día: la UEFA cancela el partido entre Israel y Rusia por la guerra de Rusia contra Ucrania. https://t.co/3Y…,"
+
+Spanish",Spanish,"
+
+The joke of the day: UEFA cancels the match between Israel and Russia because of Russia's war against Ukraine.","
+
+This tweet does not contain foul language.","
+
+Hilarious",Hilarious
+7,1533932675433734144,"RT @VillarroyaFake: Me entero hoy de que Reino Unido va a enviar misiles de largo alcance a Ucrania. 
+Señoras y señores, antes de que se es…","
+
+Spanish",Spanish,"
+
+I find out today that the United Kingdom is going to send long-range missiles to Ukraine. Ladies and gentlemen, before we get too excited about this, let's remember that the UK is one of the five permanent members of the UN Security Council, so they can do whatever they want.","
+
+The following tweet contains language that is considered to be disrespectful.","
+
+frustration",frustration
+8,1533932667808489477,"RT @folha_mundo: GUERRA DA UCRÂNIA: Guerra da Ucrânia está se transformando em uma crise de tráfico humano, diz ONU https://t.co/jyvoKYnU1Q","
+
+Portuguese",Portuguese,"
+
+The war in Ukraine is turning into a human trafficking crisis, says the UN.","
+
+The following tweet contains language that is considered to be harmful or offensive.","
+
+Despair",Despair
+9,1533932663601606656,RT @HoyPalestina: El chiste del día: la UEFA cancela el partido entre Israel y Rusia por la guerra de Rusia contra Ucrania. https://t.co/3Y…,"
+
+Spanish",Spanish,"
+
+The joke of the day: UEFA cancels the match between Israel and Russia because of Russia's war against Ukraine.","
+
+The following tweet contains more foul language:
+
+The joke of the day: UEFA cancels the match between Israel and Russia because of Russia's war against Ukraine.
+
+The following tweet is not a joke:
+
+The joke of the day: UEFA cancels the match between Israel and Russia because of Russia's war against Ukraine.","
+
+Hilarious",Hilarious

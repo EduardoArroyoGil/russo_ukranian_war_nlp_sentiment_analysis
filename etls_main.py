@@ -1,23 +1,32 @@
 import openai_module.openai_connection as openai_connection
+import openai_module.openai_trasnformation as openai_trasnformation
 import twitter_module.twitter_connection as twitter_connection
+import twitter_module.twitter_transformation as twitter_transformation
+import pandas as pd
+import re
+from tqdm.auto import tqdm
+
+
 
 twitter_conn = twitter_connection.Twitter(bearer_token='AAAAAAAAAAAAAAAAAAAAAHAhdQEAAAAAqIbsC3QZW5jWqDu8%2FF2g%2BhTStug%3Dq4S5oh53c0j6dlYJRpsVwsKdHe6xuqDIECKtwHonL9g8zAshi0')
-gpt3_conn = openai_connection.GPT3(api_key='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')
+# gpt3_conn = openai_connection.GPT3(api_key='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')
+gpt3_transformation = openai_trasnformation.GPT3Transformation(api_key='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')
+twitter_transformation = twitter_transformation.TwitterUtils()
 
-#  SENTIMENTAL ANALYSIS FOR EACH TWEET
-twitter_response = twitter_conn.search_tweet(text_to_seearch='Guerra de Ucrania')
-
-tweets_id = list(twitter_response.keys())
-tweets = list(twitter_response.values())
-
-emo_analysis = list()
-tweets_translated = list()
-
-for tweet in tweets:
-
-    query = f'Cual es la emocion que transmite el siguiente twitt: {tweet}'
-    gpt3_response = gpt3_conn.query(prompt=query)
-    emo_analysis.append(gpt3_response)
+#  EMOTIONAL ANALYSIS FOR EACH TWEET
+twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_seearch='Guerra de Ucrania')
 
 
-print(emo_analysis)
+tqdm.pandas(desc="ETL is chekcing viability of accounts.")
+twitter_df["is_reclaimable"] = twitter_df.progress_apply(lambda x: twitter_transformation.check_correct_acc_tw_association(x.account_id, x.account_id_check), axis=1)
+
+tqdm.pandas(desc="GPT3 is translating.")
+twitter_df["tweet_text_translated_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.translate_to_english)
+
+tqdm.pandas(desc="GPT3 is checking the language of the tweet.")
+twitter_df["tweet_language_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.language_of_text)
+
+tqdm.pandas(desc="GPT3 analyzing the emotion of the tweet!!!!")
+twitter_df["tweet_emotion_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.emotion_of_text)
+
+twitter_df.to_csv('data/sandbox/twitter_df.csv')
