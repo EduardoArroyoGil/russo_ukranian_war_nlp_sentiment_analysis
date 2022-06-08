@@ -5,10 +5,19 @@ from tqdm import tqdm
 
 class Twitter:
 
-    def __init__(self, bearer_token):
-        self.bearer_token = bearer_token
+    def __init__(self, bearer_token='',
+                 consumer_key='',
+                 consumer_secret='',
+                 access_token='',
+                 access_token_secret=''):
 
-    def get_connection(self):
+        self.bearer_token = bearer_token
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token = access_token
+        self.access_token_secret = access_token_secret
+
+    def get_connection_bearer_token(self):
         '''
         this function is the one that allows to get connection to API twitter based on bearer token
         documentation: https://docs.tweepy.org/en/stable/client.html
@@ -138,7 +147,7 @@ class Twitter:
         # Search Recent Tweets
         # This endpoint/method returns Tweets from the last seven days
 
-        twitter_connection = self.get_connection()
+        twitter_connection = self.get_connection_bearer_token()
 
         response = twitter_connection.search_recent_tweets(
             text_to_seearch,
@@ -167,7 +176,7 @@ class Twitter:
         # Search Recent Tweets
         # This endpoint/method returns Tweets from the last seven days
 
-        twitter_connection = self.get_connection()
+        twitter_connection = self.get_connection_bearer_token()
 
         responses = tweepy.Paginator(twitter_connection.search_recent_tweets,
                                      text_to_seearch,

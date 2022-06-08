@@ -15,7 +15,7 @@ gpt3_transformation = openai_trasnformation.GPT3Transformation(api_key='sk-lPRz6
 twitter_utils = twitter_transformation.TwitterUtils()
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET
-twitter_response, twitter_df = twitter_conn.search_recent_tweet_100(text_to_seearch='Guerra de Ucrania')
+twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_seearch='Guerra de Ucrania')
 
 
 tqdm.pandas(desc="ETL is chekcing viability of accounts", colour='blue')
