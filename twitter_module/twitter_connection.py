@@ -1,5 +1,6 @@
 import tweepy
 import pandas as pd
+from tqdm import tqdm
 
 
 class Twitter:
@@ -156,8 +157,7 @@ class Twitter:
         twitter_whole_response_df = pd.DataFrame()
 
         index = 0
-        for response in responses:
-            print(index)
+        for response in tqdm(responses, total=number_of_pages, colour='blue', desc="ETL is extracting tweets"):
             twitter_response_df = self.get_response_info(response)
             twitter_whole_response_df = pd.concat([twitter_whole_response_df, twitter_response_df])
 
