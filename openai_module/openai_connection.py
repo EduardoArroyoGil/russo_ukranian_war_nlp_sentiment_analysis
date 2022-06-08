@@ -1,4 +1,5 @@
 import openai
+import time
 
 
 class GPT3:
@@ -21,5 +22,7 @@ class GPT3:
         )
 
         content = response.choices[0].text.split('.')
+
+        time.sleep(1)
 
         return response.choices[0].text

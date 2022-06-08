@@ -12,7 +12,7 @@ class GPT3Transformation:
         gpt3_conn = openai_connection.GPT3(api_key=self.api_key)
 
         query = f'Can you translate this tweet to english: {tweet}'
-        tweet_translated = gpt3_conn.query(prompt=query)
+        tweet_translated = gpt3_conn.query(prompt=query, engine="text-curie-001")
 
         return tweet_translated
 
@@ -20,7 +20,7 @@ class GPT3Transformation:
         gpt3_conn = openai_connection.GPT3(api_key=self.api_key)
 
         query = f'In what language is this tweet written in just onw word: {tweet}'
-        tweet_lan_respond = gpt3_conn.query(prompt=query)
+        tweet_lan_respond = gpt3_conn.query(prompt=query, engine="text-babbage-001")
         tweet_lan = re.findall(r'\s(\w+)\.*$', tweet_lan_respond)
         tweet_lan = ''.join(tweet_lan)
 

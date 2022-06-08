@@ -19,7 +19,5 @@ if __name__ == '__main__':
     # calling out etls_main python script
     etls_main
 
-
-
     logging.debug("--- %s minutes ---" % round((time.time() - start_time) / 60, 2))
 
