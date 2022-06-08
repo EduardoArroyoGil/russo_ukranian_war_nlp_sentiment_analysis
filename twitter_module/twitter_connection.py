@@ -42,58 +42,88 @@ class Twitter:
                         "profile_image_url"
         '''
 
-        no_tweets = len(response.data)
+        no_tweets_data = len(response.data)
+        no_tweets_includes_users = len(response.includes["users"])
 
-        column_names = ["account_id",
-                        "account_id_check",
-                        "tweet_id",
-                        "account_username",
-                        "account_name",
-                        "tweet_text",
-                        "tweet_created_at",
-                        "tweet_language",
-                        "retweet_count",
-                        "reply_count",
-                        "like_count",
-                        "quote_count",
-                        "profile_image_url"]
+        data_column_names = ["account_id_check",
+                             "tweet_id",
+                             "tweet_text",
+                             "tweet_created_at",
+                             "tweet_language",
+                             "retweet_count",
+                             "reply_count",
+                             "like_count",
+                             "quote_count"]
 
-        twitter_response_df = pd.DataFrame(columns=column_names)
+        include_users_column_names = ["account_id",
+                                      "account_username",
+                                      "account_name",
+                                      "profile_image_url"]
+
+        twitter_data_response_df = pd.DataFrame(columns=data_column_names)
+        twitter_include_users_response_df = pd.DataFrame(columns=include_users_column_names)
 
         # Each Tweet object has default ID and text fields
-        for index in range(no_tweets):
-            account_username = response.includes["users"][0].username
-            account_name = response.includes["users"][0].name
-            account_id = response.includes["users"][0].id
-            profile_image_url = response.includes["users"][0].profile_image_url
-            tweet_id = response.data[0].id
-            tweet_text = response.data[0].text
-            tweet_created_at = str(response.data[0].created_at)
-            tweet_language = response.data[0].lang
-            account_id_check = response.data[0].author_id
-            retweet_count = response.data[0].public_metrics['retweet_count']
-            reply_count = response.data[0].public_metrics['reply_count']
-            like_count = response.data[0].public_metrics['like_count']
-            quote_count = response.data[0].public_metrics['quote_count']
+        for index in range(no_tweets_data):
+            tweet_id = response.data[index].id
+            tweet_text = response.data[index].text
+            tweet_created_at = str(response.data[index].created_at)
+            tweet_language = response.data[index].lang
+            account_id_check = response.data[index].author_id
+            retweet_count = response.data[index].public_metrics['retweet_count']
+            reply_count = response.data[index].public_metrics['reply_count']
+            like_count = response.data[index].public_metrics['like_count']
+            quote_count = response.data[index].public_metrics['quote_count']
 
-            row = [account_id,
-                   account_id_check,
+            row = [account_id_check,
                    tweet_id,
-                   account_username,
-                   account_name,
                    tweet_text,
                    tweet_created_at,
                    tweet_language,
                    retweet_count,
                    reply_count,
                    like_count,
-                   quote_count,
+                   quote_count]
+
+            twitter_data_response_df_length = len(twitter_data_response_df)
+            twitter_data_response_df.loc[twitter_data_response_df_length] = row
+
+        # Each Tweet object has default ID and text fields
+        for index in range(no_tweets_includes_users):
+            account_username = response.includes["users"][index].username
+            account_name = response.includes["users"][index].name
+            account_id = response.includes["users"][index].id
+            profile_image_url = response.includes["users"][index].profile_image_url
+
+            row = [account_id,
+                   account_username,
+                   account_name,
                    profile_image_url]
 
-            twitter_response_df_length = len(twitter_response_df)
-            twitter_response_df.loc[twitter_response_df_length] = row
+            twitter_include_users_response_df_length = len(twitter_include_users_response_df)
+            twitter_include_users_response_df.loc[twitter_include_users_response_df_length] = row
 
-        return twitter_response_df
+        twitter_response_df = twitter_data_response_df.merge(twitter_include_users_response_df,
+                                                             left_on='account_id_check', right_on='account_id',
+                                                             how='left')
+
+        column_names_order = ["account_id",
+                              "account_id_check",
+                              "tweet_id",
+                              "account_username",
+                              "account_name",
+                              "tweet_text",
+                              "tweet_created_at",
+                              "tweet_language",
+                              "retweet_count",
+                              "reply_count",
+                              "like_count",
+                              "quote_count",
+                              "profile_image_url"]
+
+        twitter_response_df = twitter_response_df[column_names_order]
+
+        return twitter_response_df.reset_index().drop(columns='index')
 
     def search_recent_tweet_100(self, text_to_seearch):
         '''
@@ -124,7 +154,7 @@ class Twitter:
 
         twitter_response_df = self.get_response_info(response)
 
-        return response, twitter_response_df
+        return response, twitter_response_df.reset_index().drop(columns='index')
 
     def search_recent_tweet(self, text_to_seearch, number_of_pages=10):
         '''
@@ -164,10 +194,12 @@ class Twitter:
             responses_dict[index] = response
             index += 1
 
-        return responses_dict, twitter_whole_response_df
+        return responses_dict, twitter_whole_response_df.reset_index().drop(columns='index')
 
-    def search_all_tweet(self, text_to_seearch):
+    def search_all_tweet_100(self, text_to_seearch):
         '''
+
+        just return 100 tweets
 
         documentation: https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
 
@@ -190,55 +222,7 @@ class Twitter:
 
         # In this case, the data field of the Response returned is a list of Tweet
         # objects
-        no_tweets = len(response.data)
 
-        column_names = ["account_id",
-                        "account_id_check",
-                        "tweet_id",
-                        "account_username",
-                        "account_name",
-                        "tweet_text",
-                        "tweet_created_at",
-                        "tweet_language",
-                        "retweet_count",
-                        "reply_count",
-                        "like_count",
-                        "quote_count",
-                        "profile_image_url"]
+        twitter_response_df = self.get_response_info(response)
 
-        twitter_response_df = pd.DataFrame(columns=column_names)
-
-        # Each Tweet object has default ID and text fields
-        for index in range(no_tweets):
-            account_username = response.includes["users"][0].username
-            account_name = response.includes["users"][0].name
-            account_id = response.includes["users"][0].id
-            profile_image_url = response.includes["users"][0].profile_image_url
-            tweet_id = response.data[0].id
-            tweet_text = response.data[0].text
-            tweet_created_at = str(response.data[0].created_at)
-            tweet_language = response.data[0].lang
-            account_id_check = response.data[0].author_id
-            retweet_count = response.data[0].public_metrics['retweet_count']
-            reply_count = response.data[0].public_metrics['reply_count']
-            like_count = response.data[0].public_metrics['like_count']
-            quote_count = response.data[0].public_metrics['quote_count']
-
-            row = [account_id,
-                   account_id_check,
-                   tweet_id,
-                   account_username,
-                   account_name,
-                   tweet_text,
-                   tweet_created_at,
-                   tweet_language,
-                   retweet_count,
-                   reply_count,
-                   like_count,
-                   quote_count,
-                   profile_image_url]
-
-            twitter_response_df_length = len(twitter_response_df)
-            twitter_response_df.loc[twitter_response_df_length] = row
-
-        return response, twitter_response_df
+        return response, twitter_response_df.reset_index().drop(columns='index')
