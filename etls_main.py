@@ -4,18 +4,22 @@ import twitter_module.twitter_connection as twitter_connection
 import twitter_module.twitter_transformation as twitter_transformation
 import pandas as pd
 import re
-from tqdm.auto import tqdm
-# https://tqdm.github.io/docs/tqdm/#pandas
-
+from tqdm.auto import tqdm # https://tqdm.github.io/docs/tqdm/#pandas
 
 
 twitter_conn = twitter_connection.Twitter(bearer_token='AAAAAAAAAAAAAAAAAAAAAHAhdQEAAAAAqIbsC3QZW5jWqDu8%2FF2g%2BhTStug%3Dq4S5oh53c0j6dlYJRpsVwsKdHe6xuqDIECKtwHonL9g8zAshi0')
-# gpt3_conn = openai_connection.GPT3(api_key='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')
+# twitter_conn = twitter_connection.Twitter(consumer_key='kNpZqaQNMmCZYJq617etZ2eDI',
+#                  consumer_secret='XPo4jhxsaCtPSMmZJoBfBKPtCo3Ta4dtn3s7QvA7HngluokQes',
+#                  access_token='1239341432135135232-9ekFhk3wxl5RIMY2eLI4IjCOoQY5J1',
+#                  access_token_secret='ixAXyTs7J29cMvzFem2rk3FDLwtQEyAXk1W6MB3fL6nhD')
 gpt3_transformation = openai_trasnformation.GPT3Transformation(api_key='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')
+
 twitter_utils = twitter_transformation.TwitterUtils()
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET
-twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_seearch='Guerra de Ucrania')
+twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_seearch='Guerra de Ucrania', number_of_pages=2)
+# twitter_response, twitter_df = twitter_conn.search_all_tweet_100(text_to_seearch='Guerra de Ucrania')
+
 
 
 tqdm.pandas(desc="ETL is chekcing viability of accounts", colour='blue')

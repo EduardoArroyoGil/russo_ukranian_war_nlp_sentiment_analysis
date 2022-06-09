@@ -25,9 +25,22 @@ class Twitter:
         '''
 
         bearer_token = self.bearer_token
-        # bearer_token = 'AAAAAAAAAAAAAAAAAAAAAHAhdQEAAAAAqIbsC3QZW5jWqDu8%2FF2g%2BhTStug%3Dq4S5oh53c0j6dlYJRpsVwsKdHe6xuqDIECKtwHonL9g8zAshi0'
 
         client = tweepy.Client(bearer_token=bearer_token)
+
+        return client
+
+    def get_connection_api_key(self):
+
+        consumer_key = self.consumer_key
+        consumer_secret = self.consumer_secret
+        access_token = self.access_token
+        access_token_secret = self.access_token_secret
+
+        client = tweepy.Client(consumer_key=consumer_key,
+                               consumer_secret=consumer_secret,
+                               access_token=access_token,
+                               access_token_secret=access_token_secret)
 
         return client
 
@@ -205,7 +218,10 @@ class Twitter:
 
         return responses_dict, twitter_whole_response_df.reset_index().drop(columns='index')
 
-    def search_all_tweet_100(self, text_to_seearch):
+    def search_all_tweet_100(self, text_to_seearch,
+                             start_time='2020-01-01T00:00:00Z',
+                             end_time='2020-08-01T00:00:00Z'):
+        # TODO: wating for Twitter approval for Academic Research product track https://developer.twitter.com/en/products/twitter-api/academic-research
         '''
 
         just return 100 tweets
@@ -218,7 +234,7 @@ class Twitter:
         # Search Recent Tweets
         # This endpoint/method returns Tweets from the last seven days
 
-        twitter_connection = self.get_connection()
+        twitter_connection = self.get_connection_api_key()
 
         response = twitter_connection.search_all_tweets(
             text_to_seearch,
@@ -226,7 +242,9 @@ class Twitter:
             user_fields=['profile_image_url'],
             media_fields=['url'],
             expansions=['author_id', 'attachments.media_keys'],
-            max_results=100)
+            start_time=start_time,
+            end_time=end_time,
+            max_results=10)
         # The method returns a Response object, a named tuple with data, includes,
 
         # In this case, the data field of the Response returned is a list of Tweet
@@ -235,3 +253,48 @@ class Twitter:
         twitter_response_df = self.get_response_info(response)
 
         return response, twitter_response_df.reset_index().drop(columns='index')
+
+    def search_all_tweet(self, text_to_seearch, number_of_pages=10,
+                             start_time='2020-01-01T00:00:00Z',
+                             end_time='2020-08-01T00:00:00Z'):
+        # TODO: wating for Twitter approval for Academic Research product track https://developer.twitter.com/en/products/twitter-api/academic-research
+        '''
+        return 100*(number of pages) tweets (10 pages by default)
+        :param text_to_seearch:
+        :param number_of_pages:
+        :return:
+        '''
+
+        # Search Recent Tweets
+        # This endpoint/method returns Tweets from the last seven days
+
+        twitter_connection = self.get_connection_bearer_token()
+
+        responses = tweepy.Paginator(twitter_connection.search_all_tweets,
+                                     text_to_seearch,
+                                     tweet_fields=['lang', 'created_at', 'public_metrics', 'entities'],
+                                     user_fields=['profile_image_url'],
+                                     media_fields=['url'],
+                                     expansions=['author_id', 'attachments.media_keys'],
+                                     start_time=start_time,
+                                     end_time=end_time,
+                                     max_results=100,
+                                     limit=number_of_pages)
+
+        # The method returns a Response object, a named tuple with data, includes,
+
+        # In this case, the data field of the Response returned is a list of Tweet
+        # objects
+
+        responses_dict = dict()
+        twitter_whole_response_df = pd.DataFrame()
+
+        index = 0
+        for response in tqdm(responses, total=number_of_pages, colour='blue', desc="ETL is extracting tweets"):
+            twitter_response_df = self.get_response_info(response)
+            twitter_whole_response_df = pd.concat([twitter_whole_response_df, twitter_response_df])
+
+            responses_dict[index] = response
+            index += 1
+
+        return responses_dict, twitter_whole_response_df.reset_index().drop(columns='index')
