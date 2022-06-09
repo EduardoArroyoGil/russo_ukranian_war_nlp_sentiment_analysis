@@ -1,0 +1,2 @@
+INFO:root:STARTING ETL PROCESS
+DEBUG:root:--- 0.0 minutes ---

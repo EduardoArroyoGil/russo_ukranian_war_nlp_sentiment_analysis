@@ -11,13 +11,15 @@ if __name__ == '__main__':
     ct = str(datetime.datetime.now())[:19]
 
     # setting logging method
-    logging.basicConfig(filename=f'logs/info_{ct}.txt', level=logging.DEBUG)
+    logging.basicConfig(filename=f'logs/info_{ct}.txt', level=logging.INFO)
 
     # starting time to measure timings
     start_time = time.time()
 
     # calling out etls_main python script
+    logging.info('START ETL PROCESS')
     etls_main
+    logging.info('FINISH ETL PROCESS')
 
-    logging.debug("--- %s minutes ---" % round((time.time() - start_time) / 60, 2))
+    logging.info("--- %s minutes ---" % round((time.time() - start_time) / 60, 2))
 
