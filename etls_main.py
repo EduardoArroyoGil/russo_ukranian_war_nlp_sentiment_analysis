@@ -2,10 +2,11 @@ import openai_module.openai_connection as openai_connection
 import openai_module.openai_trasnformation as openai_trasnformation
 import twitter_module.twitter_connection as twitter_connection
 import twitter_module.twitter_transformation as twitter_transformation
+import tools.db.db_connection as db_connection
 import pandas as pd
 import re
 
-from tqdm.auto import tqdm # https://tqdm.github.io/docs/tqdm/#pandas
+from tqdm.auto import tqdm  # https://tqdm.github.io/docs/tqdm/#pandas
 import logging
 
 
@@ -21,17 +22,26 @@ logging.debug('connected to Twitter')
 gpt3_transformation = openai_trasnformation.GPT3Transformation(api_key='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')
 logging.debug('connected to GPT3')
 
+db = db_connection.Load(db_name='twitter_raw', password='1234567890')
+logging.debug('connected to db')
+
+db.create_db()
+logging.debug('create db if not exists')
+
 twitter_utils = twitter_transformation.TwitterUtils()
 
 #  EXTRACTING DATA FROM TWITTER
 logging.info('EXTRACT DATA FROM TWITTER')
-twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_seearch='Guerra de Ucrania', number_of_pages=1)
+twitter_response, twitter_df = twitter_conn.search_recent_tweet_100(text_to_seearch='Guerra de Ucrania')
 
 logging.debug('Start Check of accounts')
 tqdm.pandas(desc="ETL is chekcing viability of accounts", colour='blue')
 twitter_df["is_reclaimable"] = twitter_df.progress_apply(lambda x: twitter_utils.check_correct_acc_tw_association(x.account_id, x.account_id_check), axis=1)
 logging.debug('Finish Check of accounts')
 twitter_df.to_csv('data/sandbox/twitter_df.csv')
+
+
+
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
 logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')
