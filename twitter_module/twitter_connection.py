@@ -147,14 +147,15 @@ class Twitter:
 
         return twitter_response_df.reset_index().drop(columns='index')
 
-    def search_recent_tweet_100(self, text_to_seearch):
+    def search_recent_tweet_100(self, text_to_search, max_results=100):
         '''
 
         just return 100 tweets
 
         documentation: https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
 
-        :param text_to_seearch:
+        :param text_to_search:
+        :param max_results:
         :return:
         '''
         # Search Recent Tweets
@@ -163,12 +164,12 @@ class Twitter:
         twitter_connection = self.get_connection_bearer_token()
 
         response = twitter_connection.search_recent_tweets(
-            text_to_seearch,
+            text_to_search,
             tweet_fields=['lang', 'created_at', 'public_metrics', 'entities'],
             user_fields=['profile_image_url'],
             media_fields=['url'],
             expansions=['author_id', 'attachments.media_keys'],
-            max_results=100)
+            max_results=max_results)
         # The method returns a Response object, a named tuple with data, includes,
 
         # In this case, the data field of the Response returned is a list of Tweet
