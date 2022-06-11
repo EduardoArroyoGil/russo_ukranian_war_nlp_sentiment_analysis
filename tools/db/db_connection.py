@@ -2,7 +2,7 @@ import sqlalchemy as alch
 from sqlalchemy.exc import SQLAlchemyError
 import logging
 
-# DB_ROOT_PASSWORD='1234567890'
+
 class Load:
 
     def __init__(self, db_name, password):
@@ -12,8 +12,8 @@ class Load:
 
     def server_conn(self):
         connection = f"mysql+pymysql://root:{self.password}@localhost"
-        return alch.create_engine(connection)
 
+        return alch.create_engine(connection)
 
     def create_db(self):
         engine = self.server_conn()
@@ -30,13 +30,12 @@ class Load:
 
     def create_insert_table(self, query):
         engine = self.db_conn()
-
-
         try:
             engine.execute(query)
 
         except SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
+            logging.debug(error)
             return error
 
     def get_id(self, link, col_id,  column, table):
@@ -44,14 +43,14 @@ class Load:
         engine = self.db_conn()
 
         try:
-            query_sacar_id = f"SELECT {col_id} FROM {table} WHERE {column} = '{link}'"
+            query_get_id = f"SELECT {col_id} FROM {table} WHERE {column} = '{link}'"
 
-            id_ = engine.execute(query_sacar_id).first()
+            id_ = engine.execute(query_get_id).first()
 
             if not id_:
                 return "That id already exists in DB"
             else:
-                return engine.execute(query_sacar_id).first()[0]
+                return engine.execute(query_get_id).first()[0]
 
         except SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
