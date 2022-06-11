@@ -1,10 +1,7 @@
-import openai_module.openai_connection as openai_connection
 import openai_module.openai_trasnformation as openai_transformation
 import twitter_module.twitter_connection as twitter_connection
 import twitter_module.twitter_transformation as twitter_transformation
 import tools.db.db_connection as db_connection
-import pandas as pd
-import re
 
 from tqdm.auto import tqdm  # https://tqdm.github.io/docs/tqdm/#pandas
 import logging
