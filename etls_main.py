@@ -37,7 +37,9 @@ twitter_response, twitter_df = twitter_conn.search_recent_tweet_100(text_to_sear
 
 logging.debug('Start Check of accounts')
 tqdm.pandas(desc="ETL is chekcing viability of accounts", colour='blue')
-twitter_df["is_reclaimable"] = twitter_df.progress_apply(lambda x: twitter_utils.check_correct_acc_tw_association(x.account_id, x.account_id_check), axis=1)
+twitter_df["is_reclaimable"] = twitter_df.progress_apply(lambda x: twitter_utils
+                                                         .check_correct_acc_tw_association(x.account_id,
+                                                                                           x.account_id_check), axis=1)
 logging.debug('Finish Check of accounts')
 twitter_df.to_csv('data/sandbox/twitter_df.csv')
 
@@ -46,7 +48,8 @@ logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')
 
 logging.debug('Start Translate tweets to english')
 tqdm.pandas(desc="GPT3 is translating", colour='black')
-twitter_df["tweet_text_translated_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.translate_to_english)
+twitter_df["tweet_text_translated_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation
+                                                                                   .translate_to_english)
 logging.debug('Finish Translate tweets to english')
 
 logging.debug('Start classification of language for each tweet')
