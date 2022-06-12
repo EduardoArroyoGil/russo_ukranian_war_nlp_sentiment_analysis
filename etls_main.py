@@ -4,6 +4,7 @@ import twitter_module.twitter_transformation as twitter_transformation
 import tools.db.db_connection as db_connection
 import tools.db.queries_table_generator as query_generator
 
+import pandas as pd
 from tqdm.auto import tqdm  # https://tqdm.github.io/docs/tqdm/#pandas
 import logging
 import os
@@ -25,23 +26,23 @@ logging.debug('Inside the ETL')
 
 
 #  CONNECTING TO DB
-db_root_password = os.getenv("DB_ROOT_PASSWORD")
-db = db_connection.Load(db_name='twitter_raw', password=db_root_password)
-logging.debug('connected to db')
-
-db.create_db()
-logging.debug('create db if not exists')
-
-q_gen = query_generator.RawTables()
-db.create_insert_table(query=q_gen.create_tweets_raw)
-logging.debug('create db if not exists')
+# db_root_password = os.getenv("DB_ROOT_PASSWORD")
+# db = db_connection.Load(db_name='twitter_raw', password=db_root_password)
+# logging.debug('connected to db')
+#
+# db.create_db()
+# logging.debug('create db if not exists')
+#
+# q_gen = query_generator.RawTables()
+# db.create_insert_table(query=q_gen.create_tweets_raw)
+# logging.debug('create db if not exists')
 
 
 #  EXTRACTING DATA FROM TWITTER
 # logging.info('EXTRACT DATA FROM TWITTER')
 # twitter_response, twitter_df = twitter_conn.search_recent_tweet_100(text_to_search='Guerra de Ucrania', max_results=10)
 #
-# twitter_utils = twitter_transformation.TwitterUtils()
+twitter_utils = twitter_transformation.TwitterUtils()
 # logging.debug('Start Check of accounts')
 # tqdm.pandas(desc="ETL is chekcing viability of accounts", colour='blue')
 # twitter_df["is_reclaimable"] = twitter_df.progress_apply(lambda x: twitter_utils
@@ -49,6 +50,12 @@ logging.debug('create db if not exists')
 #                                                                                            x.account_id_check), axis=1)
 # logging.debug('Finish Check of accounts')
 # twitter_df.to_csv('data/sandbox/twitter_df.csv')
+
+#  INSERTING INTO DB
+df = pd.read_csv('data/sandbox/twitter_df.csv')
+
+df = twitter_utils.align_column_raw_types_to_insert(df)
+
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
 # logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')
