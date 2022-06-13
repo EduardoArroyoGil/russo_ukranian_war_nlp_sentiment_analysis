@@ -6,6 +6,7 @@ import logging
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import datetime
 
 def start(df=pd.read_csv('data/sample/twitter_df.csv')):
 
@@ -50,6 +51,10 @@ def start(df=pd.read_csv('data/sample/twitter_df.csv')):
     if 'Unnamed: 0' in df_columns:
         df.drop(columns='Unnamed: 0', inplace=True)
 
+    # ct stores current time
+    ct = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
     df.sample(5).to_csv('data/sample/twitter_df_gpt3.csv')
+    df.to_csv(f'data/production/twitter_df_gpt3_{ct}.csv')
 
     return df

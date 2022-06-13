@@ -179,7 +179,7 @@ class Twitter:
 
         return response, twitter_response_df.reset_index().drop(columns='index')
 
-    def search_recent_tweet(self, text_to_seearch, number_of_pages=10):
+    def search_recent_tweet(self, text_to_search, number_of_pages=10):
         '''
         return 100*(number of pages) tweets (10 pages by default)
         :param text_to_seearch:
@@ -193,7 +193,7 @@ class Twitter:
         twitter_connection = self.get_connection_bearer_token()
 
         responses = tweepy.Paginator(twitter_connection.search_recent_tweets,
-                                     text_to_seearch,
+                                     text_to_search,
                                      tweet_fields=['lang', 'created_at', 'public_metrics', 'entities'],
                                      user_fields=['profile_image_url'],
                                      media_fields=['url'],

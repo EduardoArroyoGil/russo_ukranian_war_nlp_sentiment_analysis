@@ -6,6 +6,7 @@ import logging
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import datetime
 
 
 def start():
@@ -20,7 +21,7 @@ def start():
 
     #  EXTRACTING DATA FROM TWITTER
     logging.info('EXTRACT DATA FROM TWITTER')
-    twitter_response, twitter_df = twitter_conn.search_recent_tweet_100(text_to_search='Guerra de Ucrania', max_results=10)
+    twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_search='Guerra de Ucrania', number_of_pages=1000)
 
     twitter_utils = twitter_transformation.TwitterUtils()
     logging.debug('Start Check of accounts')
@@ -34,6 +35,10 @@ def start():
     if 'Unnamed: 0' in df_columns:
         twitter_df.drop(columns='Unnamed: 0', inplace=True)
 
+    # ct stores current time
+    ct = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
     twitter_df.sample(5).to_csv('data/sample/twitter_df.csv')
+    twitter_df.to_csv(f'data/production/twitter_df_{ct}.csv')
 
     return twitter_df
