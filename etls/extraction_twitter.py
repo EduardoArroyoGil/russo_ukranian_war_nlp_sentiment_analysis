@@ -1,7 +1,6 @@
 import twitter_module.twitter_connection as twitter_connection
 import twitter_module.twitter_transformation as twitter_transformation
 
-import pandas as pd
 from tqdm.auto import tqdm  # https://tqdm.github.io/docs/tqdm/#pandas
 import logging
 import os
