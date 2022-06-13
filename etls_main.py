@@ -26,16 +26,16 @@ logging.debug('Inside the ETL')
 
 
 #  CONNECTING TO DB
-# db_root_password = os.getenv("DB_ROOT_PASSWORD")
-# db = db_connection.Load(db_name='twitter_raw', password=db_root_password)
-# logging.debug('connected to db')
-#
-# db.create_db()
-# logging.debug('create db if not exists')
-#
-# q_gen = query_generator.RawTables()
-# db.create_insert_table(query=q_gen.create_tweets_raw)
-# logging.debug('create db if not exists')
+db_root_password = os.getenv("DB_ROOT_PASSWORD")
+db = db_connection.Load(db_name='twitter_raw', password=db_root_password)
+logging.debug('connected to db')
+
+db.create_db()
+logging.debug('create db if not exists')
+
+q_gen = query_generator.RawTables()
+db.create_insert_table(query=q_gen.create_tweets_raw)
+logging.debug('create db if not exists')
 
 
 #  EXTRACTING DATA FROM TWITTER
@@ -56,6 +56,7 @@ df = pd.read_csv('data/sandbox/twitter_df.csv')
 
 df = twitter_utils.align_column_raw_types_to_insert(df)
 
+db.insert_tweets_into_db(df, schema='twitter_raw', table='tweets_raw')
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
 # logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')

@@ -6,18 +6,18 @@ class RawTables:
 
         self.create_tweets_raw = '''
             CREATE TABLE IF NOT EXISTS twitter_raw.tweets_raw (
-                account_id                  int
-                , account_id_check          int
-                , tweet_id                  int
+                account_id                  bigint
+                , account_id_check          bigint
+                , tweet_id                  bigint not null primary key
                 , account_username          text
                 , account_name              text
                 , tweet_text                text
                 , tweet_created_at          timestamp
                 , tweet_language            text
-                , retweet_count             int
-                , reply_count               int
-                , like_count                int
-                , quote_count               int
+                , retweet_count             bigint
+                , reply_count               bigint
+                , like_count                bigint
+                , quote_count               bigint
                 , profile_image_url         text
                 , is_reclaimable            boolean
                 , date_inserted             timestamp
