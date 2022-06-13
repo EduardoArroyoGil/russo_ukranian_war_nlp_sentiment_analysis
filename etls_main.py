@@ -1,3 +1,6 @@
+import etls.setting_db as setting_db
+import etls.inserting_raw_data_into_db as inserting_raw_data_into_db
+
 import openai_module.openai_trasnformation as openai_transformation
 import twitter_module.twitter_connection as twitter_connection
 import twitter_module.twitter_transformation as twitter_transformation
@@ -20,22 +23,13 @@ logging.debug('Inside the ETL')
 # twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
 # twitter_conn = twitter_connection.Twitter(bearer_token=twitter_bearer_token)
 # logging.debug('connected to Twitter')
-# gpt3_api_key = os.getenv("GPT3_API_KEY")
-# gpt3_transformation = openai_transformation.GPT3Transformation(api_key=gpt3_api_key)
-# logging.debug('connected to GPT3')
+gpt3_api_key = os.getenv("GPT3_API_KEY")
+gpt3_transformation = openai_transformation.GPT3Transformation(api_key=gpt3_api_key)
+logging.debug('connected to GPT3')
 
 
 #  CONNECTING TO DB
-db_root_password = os.getenv("DB_ROOT_PASSWORD")
-db = db_connection.Load(db_name='twitter_raw', password=db_root_password)
-logging.debug('connected to db')
-
-db.create_db()
-logging.debug('create db if not exists')
-
-q_gen = query_generator.RawTables()
-db.create_insert_table(query=q_gen.create_tweets_raw)
-logging.debug('create db if not exists')
+setting_db
 
 
 #  EXTRACTING DATA FROM TWITTER
@@ -51,30 +45,37 @@ twitter_utils = twitter_transformation.TwitterUtils()
 # logging.debug('Finish Check of accounts')
 # twitter_df.to_csv('data/sandbox/twitter_df.csv')
 
-#  INSERTING INTO DB
-df = pd.read_csv('data/sandbox/twitter_df.csv')
+#  INSERTING RAW DATA INTO DB
+inserting_raw_data_into_db
 
-df = twitter_utils.align_column_raw_types_to_insert(df)
+# READ TWEETS FROM DB
+db_root_password = os.getenv("DB_ROOT_PASSWORD")
+db_raw = db_connection.Load(db_name='twitter_transformed', password=db_root_password)
+logging.debug('connected to db_raw')
+logging.info('READ TWEETS FROM DB')
 
-db.insert_tweets_into_db(df, schema='twitter_raw', table='tweets_raw')
+df = db_raw.read_table(schema='twitter_raw', table='tweets_raw')
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
-# logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')
-#
-# logging.debug('Start Translate tweets to english')
-# tqdm.pandas(desc="GPT3 is translating", colour='black')
-# twitter_df["tweet_text_translated_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation
-#                                                                                    .translate_to_english)
-# logging.debug('Finish Translate tweets to english')
-#
+logging.info('EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3')
+
+logging.debug('Start Translate tweets to english')
+tqdm.pandas(desc="GPT3 is translating", colour='black')
+df["tweet_text_translated_gpt3"] = df["tweet_text"].progress_apply(gpt3_transformation
+                                                                                   .translate_to_english)
+logging.debug('Finish Translate tweets to english')
+
 # logging.debug('Start classification of language for each tweet')
 # tqdm.pandas(desc="GPT3 is checking the language of the tweet", colour='black')
-# twitter_df["tweet_language_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.language_of_text)
+# df["tweet_language_gpt3"] = df["tweet_text"].progress_apply(gpt3_transformation.language_of_text)
 # logging.debug('Finish classification of language for each tweet')
-#
-# logging.debug('Start emotional analysis by GPT3')
-# tqdm.pandas(desc="GPT3 analyzing the emotion of the tweet!!!!", colour='black')
-# twitter_df["tweet_emotion_gpt3"] = twitter_df["tweet_text"].progress_apply(gpt3_transformation.emotion_of_text)
-# logging.debug('Finish emotional analysis by GPT3')
-#
-# twitter_df.to_csv('data/sandbox/twitter_df_gpt3.csv')
+
+logging.debug('Start emotional analysis by GPT3')
+tqdm.pandas(desc="GPT3 analyzing the emotion of the tweet!!!!", colour='black')
+df["tweet_emotion_gpt3"] = df["tweet_text"].progress_apply(gpt3_transformation.emotion_of_text)
+logging.debug('Finish emotional analysis by GPT3')
+
+#  INSERTING GPT3 TRANSFORMED DATA INTO DB
+logging.info('INSERTING GPT3 TRANSFORMED DATA INTO DB')
+
+db_raw.insert_transformed_tweets_into_db(df, schema='twitter_transformed', table='tweets_emotional')
