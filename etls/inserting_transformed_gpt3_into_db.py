@@ -1,4 +1,3 @@
-import twitter_module.twitter_transformation as twitter_transformation
 import tools.db.db_connection as db_connection
 
 import pandas as pd

@@ -1,8 +1,4 @@
 import openai_module.openai_trasnformation as openai_transformation
-import twitter_module.twitter_connection as twitter_connection
-import twitter_module.twitter_transformation as twitter_transformation
-import tools.db.db_connection as db_connection
-import tools.db.queries_table_generator as query_generator
 
 import pandas as pd
 from tqdm.auto import tqdm  # https://tqdm.github.io/docs/tqdm/#pandas
@@ -54,6 +50,6 @@ def start(df=pd.read_csv('data/sample/twitter_df.csv')):
     if 'Unnamed: 0' in df_columns:
         df.drop(columns='Unnamed: 0', inplace=True)
 
-    df.sample(10).to_csv('data/sample/twitter_df_gpt3.csv')
+    df.sample(5).to_csv('data/sample/twitter_df_gpt3.csv')
 
     return df

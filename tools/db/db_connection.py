@@ -124,7 +124,7 @@ class Load:
                 if not error:
                     inserted_records += 1
                 else:
-                    print('tweet ', row['tweet_id'], " has been failed in the insertion into the DB")
+                    print('tweet ', row['tweet_id'], f" has been failed in the insertion into the DB due to: {error}")
                     error_inserted_records += 1
             else:
                 print('tweet ', row['tweet_id'], " already exists in DB")
