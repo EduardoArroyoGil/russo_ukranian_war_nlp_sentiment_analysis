@@ -86,7 +86,8 @@ class Load:
         error_inserted_records = 0
         skipped_inserted_records = 0
         df_columns = list(df.columns)
-        df_columns.remove('Unnamed: 0')
+        if 'Unnamed: 0' in df_columns:
+            df_columns.remove('Unnamed: 0')
 
         string_df_columns = ",".join(df_columns)
 
@@ -145,6 +146,8 @@ class Load:
         error_inserted_records = 0
         skipped_inserted_records = 0
         df_columns = list(df.columns)
+        if 'Unnamed: 0' in df_columns:
+            df_columns.remove('Unnamed: 0')
 
         string_df_columns = ",".join(df_columns)
 

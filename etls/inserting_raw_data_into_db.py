@@ -7,19 +7,28 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-dotenv_path = Path("./.env")
-load_dotenv(dotenv_path=dotenv_path)
 
-twitter_utils = twitter_transformation.TwitterUtils()
+def start(df=pd.read_csv('data/sample/twitter_df.csv')):
+    '''
 
-db_root_password = os.getenv("DB_ROOT_PASSWORD")
-db_raw = db_connection.Load(db_name='twitter_transformed', password=db_root_password)
-logging.debug('connected to db_raw')
+    :param df: by default insert df from sample data
+    :return:
+    '''
 
-#  INSERTING RAW DATA INTO DB
-logging.info('INSERTING RAW DATA INTO DB')
-df = pd.read_csv('data/sandbox/twitter_df.csv')
+    dotenv_path = Path("./.env")
+    load_dotenv(dotenv_path=dotenv_path)
 
-df = twitter_utils.align_column_raw_types_to_insert(df)
+    twitter_utils = twitter_transformation.TwitterUtils()
 
-db_raw.insert_raw_tweets_into_db(df, schema='twitter_raw', table='tweets_raw')
+    db_root_password = os.getenv("DB_ROOT_PASSWORD")
+    db_raw = db_connection.Load(db_name='twitter_transformed', password=db_root_password)
+    logging.debug('connected to db_raw')
+
+    #  INSERTING RAW DATA INTO DB
+    logging.info('INSERTING RAW DATA INTO DB')
+
+    df = twitter_utils.align_column_raw_types_to_insert(df)
+
+    db_raw.insert_raw_tweets_into_db(df, schema='twitter_raw', table='tweets_raw')
+
+
