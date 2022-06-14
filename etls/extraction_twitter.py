@@ -15,13 +15,16 @@ def start():
     load_dotenv(dotenv_path=dotenv_path)
 
     #  CONNECTING TO TWITTER
-    twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
+    twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN_2")
     twitter_conn = twitter_connection.Twitter(bearer_token=twitter_bearer_token)
     logging.debug('connected to Twitter')
 
     #  EXTRACTING DATA FROM TWITTER
     logging.info('EXTRACT DATA FROM TWITTER')
-    twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_search='Guerra de Ucrania', number_of_pages=1000)
+    twitter_response, twitter_df = twitter_conn.search_recent_tweet(text_to_search='Putin'
+                                                                    , start_time='2022-06-11T00:00:00Z'
+                                                                    , end_time='2022-06-14T00:00:00Z'
+                                                                    , number_of_pages=1000)
 
     twitter_utils = twitter_transformation.TwitterUtils()
     logging.debug('Start Check of accounts')

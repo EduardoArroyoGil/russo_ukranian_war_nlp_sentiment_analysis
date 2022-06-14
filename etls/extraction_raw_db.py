@@ -3,6 +3,7 @@ import logging
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import datetime
 
 
 def start():
@@ -22,5 +23,11 @@ def start():
     logging.info('READ TWEETS FROM DB')
 
     df = db_raw.read_table(schema='twitter_raw', table='tweets_raw')
+
+    # ct stores current time
+    ct = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    df.sample(5).to_csv('data/sample/twitter_raw.tweets_raw/tweets_raw.csv')
+    df.to_csv(f'data/production/twitter_raw.tweets_raw/tweets_raw_refreshed_{ct}.csv')
 
     return df

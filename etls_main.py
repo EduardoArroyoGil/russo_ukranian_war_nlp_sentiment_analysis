@@ -4,6 +4,7 @@ import etls.inserting_raw_data_into_db as inserting_raw_data_into_db
 import etls.extraction_raw_db as extraction_raw_db
 import etls.transforming_gpt3 as transforming_gpt3
 import etls.inserting_transformed_gpt3_into_db as inserting_transformed_gpt3_into_db
+import pandas as pd
 
 import logging
 

@@ -138,20 +138,36 @@ class Load:
 
             tweet_id = self.get_id(record=row["tweet_id"], col_id="tweet_id", column="tweet_id", schema=schema, table=table)
 
-            if tweet_id == "That tweet_id doesn't exist in DB":
-                error = self.create_insert_table(query)
-                if not error:
+            try:
+                self.create_insert_table(query)
+                inserted_records += 1
+
+            except:
+
+                try:
+                    self.create_insert_table(query2)
                     inserted_records += 1
-                else:
-                    error2 = self.create_insert_table(query2)
-                    if not error2:
-                        inserted_records += 1
-                    else:
-                        print('tweet ', row['tweet_id'], f" has been failed in the insertion into the DB due to: {error}")
-                        error_inserted_records += 1
-            else:
-                print('tweet ', row['tweet_id'], " already exists in DB")
-                skipped_inserted_records += 1
+                except:
+                    error_inserted_records += 1
+
+            # if tweet_id == "That tweet_id doesn't exist in DB":
+            #     try:
+            #         self.create_insert_table(query)
+            #         inserted_records += 1
+            #
+            #     except:
+            #
+            #         try:
+            #             self.create_insert_table(query2)
+            #             inserted_records += 1
+            #         except:
+            #
+            #             #print('strange error')
+            #             #print('tweet ', row['tweet_id'], f" has been failed in the insertion into the DB")
+            #             error_inserted_records += 1
+            # else:
+            #     #print('tweet ', row['tweet_id'], " already exists in DB")
+            #     skipped_inserted_records += 1
 
         print(f"{inserted_records} records have been inserted \n",
               f"{error_inserted_records} records haven't been inserted into {schema}.{table} due to insert errors \n",

@@ -1,6 +1,7 @@
 import tweepy
 import pandas as pd
 from tqdm import tqdm
+import time
 
 
 class Twitter:
@@ -179,7 +180,7 @@ class Twitter:
 
         return response, twitter_response_df.reset_index().drop(columns='index')
 
-    def search_recent_tweet(self, text_to_search, number_of_pages=10):
+    def search_recent_tweet(self, text_to_search, start_time, end_time, number_of_pages=10 ):
         '''
         return 100*(number of pages) tweets (10 pages by default)
         :param text_to_seearch:
@@ -198,6 +199,8 @@ class Twitter:
                                      user_fields=['profile_image_url'],
                                      media_fields=['url'],
                                      expansions=['author_id', 'attachments.media_keys'],
+                                     start_time=start_time,
+                                     end_time=end_time,
                                      max_results=100,
                                      limit=number_of_pages)
 
@@ -215,6 +218,7 @@ class Twitter:
             twitter_whole_response_df = pd.concat([twitter_whole_response_df, twitter_response_df])
 
             responses_dict[index] = response
+            time.sleep(2)
             index += 1
 
         return responses_dict, twitter_whole_response_df.reset_index().drop(columns='index')
