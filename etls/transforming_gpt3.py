@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import datetime
 
-def start(df=pd.read_csv('data/sample/twitter_df.csv')):
+def start(df=pd.read_csv('data/sample/twitter_raw.tweets_raw/tweets_raw.csv')):
 
     '''
 

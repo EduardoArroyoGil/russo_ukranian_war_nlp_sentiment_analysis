@@ -3,6 +3,7 @@ import etls.extraction_twitter as extraction_twitter
 import etls.inserting_raw_data_into_db as inserting_raw_data_into_db
 import etls.extraction_raw_db as extraction_raw_db
 import etls.transforming_gpt3 as transforming_gpt3
+import etls.transforming_gpt2 as transforming_gpt2
 import etls.inserting_transformed_gpt3_into_db as inserting_transformed_gpt3_into_db
 import pandas as pd
 
@@ -24,7 +25,7 @@ logging.debug('Inside the ETL')
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
 # df_trans = transforming_gpt3.start(df_raw)
-
+df_trans = transforming_gpt2.start()
 
 #  INSERTING GPT3 TRANSFORMED DATA INTO DB
 # inserting_transformed_gpt3_into_db.start(df_trans)
