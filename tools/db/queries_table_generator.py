@@ -46,3 +46,15 @@ class RawTables:
                     ) engine=innodb;
                 '''
 
+        self.create_view_twitter_accounts = '''
+                    CREATE OR REPLACE VIEW twitter_raw.v_twitter_accounts_raw AS
+                        SELECT DISTINCT
+                            account_id,
+                            account_id_check,
+                            account_username,
+                            account_name,
+                            is_reclaimable
+                        FROM
+                            twitter_raw.tweets_raw
+                        order by 1,2,3,4;
+                '''

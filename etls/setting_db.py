@@ -27,6 +27,10 @@ def start():
     db_raw.create_insert_table(query=q_gen.create_tweets_raw)
     logging.debug('create table if not exists')
 
+    q_gen = query_generator.RawTables()
+    db_raw.create_insert_table(query=q_gen.create_view_twitter_accounts)
+    logging.debug('create or replace view')
+
     db_transformed = db_connection.Load(db_name='twitter_transformed', password=db_root_password)
     logging.debug('connected to db_transformed')
 
