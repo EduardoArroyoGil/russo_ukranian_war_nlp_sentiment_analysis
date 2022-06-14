@@ -29,9 +29,7 @@ class GPT3Transformation:
     def emotion_of_text(self, tweet):
         gpt3_conn = openai_connection.GPT3(api_key=self.api_key)
 
-        tweet_translated = self.translate_to_english(tweet)
-
-        query = f'Which emotion transmit the following twitt in just one word: {tweet_translated}'
+        query = f'Which emotion transmit the following twitt in just one word: {tweet}'
         emo_analysis_respond = gpt3_conn.query(prompt=query)
         emo_analysis = re.findall(r'\s(\w+)\.*$', emo_analysis_respond)
         emo_analysis = ''.join(emo_analysis)

@@ -44,7 +44,7 @@ def start(df=pd.read_csv('data/sample/twitter_raw.tweets_raw/tweets_raw.csv')):
 
     logging.debug('Start emotional analysis by GPT3')
     tqdm.pandas(desc="GPT3 analyzing the emotion of the tweet!!!!", colour='black')
-    df["tweet_emotion_gpt3"] = df["tweet_text"].progress_apply(gpt3_transformation.emotion_of_text)
+    df["tweet_emotion_gpt3"] = df["tweet_text_translated_gpt3"].progress_apply(gpt3_transformation.emotion_of_text)
     logging.debug('Finish emotional analysis by GPT3')
 
     df_columns = list(df.columns)

@@ -24,7 +24,7 @@ logging.debug('Inside the ETL')
 # df_raw = extraction_raw_db.start()
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
-# df_trans = transforming_gpt3.start(df_raw)
+df_trans = transforming_gpt3.start()
 df_trans = transforming_gpt2.start()
 
 #  INSERTING GPT3 TRANSFORMED DATA INTO DB

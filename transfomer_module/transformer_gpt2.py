@@ -82,7 +82,7 @@ class GPT2Transformation:
 
         return tokenizer, model
 
-    def translate_to_english(self, tweet, model='gpt2', model_pretrained='gpt2', tokenizer='gpt2'):
+    def translate_to_english(self, tweet, model='gpt2lmh', model_pretrained='gpt2', tokenizer='gpt2'):
         '''
 
         :param tweet:
@@ -107,7 +107,7 @@ class GPT2Transformation:
 
         return tweet_translated
 
-    def emotion_of_text(self, tweet, model='gpt2', model_pretrained='gpt2', tokenizer='gpt2'):
+    def emotion_of_text(self, tweet, model='gpt2lmh', model_pretrained='gpt2', tokenizer='gpt2'):
         '''
 
         :param tweet:
@@ -123,7 +123,7 @@ class GPT2Transformation:
         input_ids = tokenizer.encode(sentence, return_tensors='pt')
 
         output = model.generate(input_ids,
-                                max_length=100,
+                                max_length=300,
                                 num_beams=5,
                                 no_repeat_ngram_size=2,
                                 early_stopping=True)
