@@ -15,14 +15,13 @@ def start():
     dotenv_path = Path("./.env")
     load_dotenv(dotenv_path=dotenv_path)
 
-
     # READ TWEETS FROM DB
     db_root_password = os.getenv("DB_ROOT_PASSWORD")
     db_raw = db_connection.Load(db_name='twitter_transformed', password=db_root_password)
     logging.debug('connected to db_raw')
     logging.info('READ TWEETS FROM DB')
 
-    df = db_raw.read_table(schema='twitter_raw', table='tweets_raw')
+    df = db_raw.read_table(schema='twitter_raw', table='v_tweets_priority_raw', where='priority=2')
 
     # ct stores current time
     ct = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

@@ -130,7 +130,4 @@ class GPT2Transformation:
 
         emo_analysis_respond = tokenizer.decode(output[0], skip_special_tokens=True)
 
-        emo_analysis = re.findall(r'\s(\w+)\.*$', emo_analysis_respond)
-        emo_analysis = ''.join(emo_analysis)
-
-        return emo_analysis
+        return emo_analysis_respond

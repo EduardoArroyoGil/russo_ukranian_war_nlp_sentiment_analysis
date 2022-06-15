@@ -12,7 +12,7 @@ import logging
 logging.debug('Inside the ETL')
 
 #  CONNECTING TO DB
-# setting_db.start()
+setting_db.start()
 
 #  EXTRACTING DATA FROM TWITTER
 # df = extraction_twitter.start()
@@ -21,13 +21,13 @@ logging.debug('Inside the ETL')
 # inserting_raw_data_into_db.start(df)
 
 # READ TWEETS FROM DB
-# df_raw = extraction_raw_db.start()
+df_raw = extraction_raw_db.start()
 
 #  EMOTIONAL ANALYSIS FOR EACH TWEET WITH GPT3
-df_trans = transforming_gpt3.start()
-df_trans = transforming_gpt2.start()
+df_trans = transforming_gpt3.start(df_raw)
+# df_trans = transforming_gpt2.start()
 
 #  INSERTING GPT3 TRANSFORMED DATA INTO DB
-# inserting_transformed_gpt3_into_db.start(df_trans)
+inserting_transformed_gpt3_into_db.start(df_trans)
 
 logging.debug('Finish ETL')

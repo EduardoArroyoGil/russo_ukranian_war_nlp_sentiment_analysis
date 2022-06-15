@@ -40,11 +40,17 @@ class Load:
             logging.debug(error)
             return error
 
-    def read_table(self, schema, table):
+    def read_table(self, schema, table, where=None):
 
         engine = self.db_conn()
 
-        query = f"SELECT * FROM {schema}.{table}"
+        if where == None:
+            where = ''
+        else:
+            where = 'WHERE ' + where
+
+
+        query = f"SELECT * FROM {schema}.{table} {where}"
 
         sql_df = pd.read_sql(
             query,
@@ -213,29 +219,12 @@ class Load:
                                 , {row["quote_count"]}
                                 , "{row["profile_image_url"]}"
                                 , {row["is_reclaimable"]}
+                                , "{row["political_party"]}"
+                                , {row["priority"]}
                                 , "{row["tweet_text_translated_gpt3"]}"
                                 , "{row["tweet_emotion_gpt3"]}"
                                 , "{ct}"
                                 );"""
-
-            query2 = f"""INSERT INTO {schema}.{table} {string_df_columns} 
-                                            VALUES ( 
-                                            {row["account_id"]}
-                                            , {row["account_id_check"]}
-                                            , {row["tweet_id"]}
-                                            , "{row["account_username"]}"
-                                            , "{row["account_name"]}"
-                                            , "{row["tweet_text"]}"
-                                            , "{row["tweet_created_at"]}"
-                                            , "{row["tweet_language"]}"
-                                            , {row["retweet_count"]}
-                                            , {row["reply_count"]}
-                                            , {row["like_count"]}
-                                            , {row["quote_count"]}
-                                            , "{row["profile_image_url"]}"
-                                            , {row["is_reclaimable"]}
-                                            , "{ct}"
-                                            );"""
 
             tweet_id = self.get_id(record=row["tweet_id"], col_id="tweet_id", column="tweet_id", schema=schema, table=table)
 
@@ -244,13 +233,9 @@ class Load:
                 if not error:
                     inserted_records += 1
                 else:
-                    error2 = self.create_insert_table(query2)
-                    if not error2:
-                        inserted_records += 1
-                    else:
-                        print('tweet ', row['tweet_id'],
-                              f" has been failed in the insertion into the DB due to: {error}")
-                        error_inserted_records += 1
+                    print('tweet ', row['tweet_id'],
+                          f" has been failed in the insertion into the DB due to: {error}")
+                    error_inserted_records += 1
             else:
                 print('tweet ', row['tweet_id'], " already exists in DB")
                 skipped_inserted_records += 1
