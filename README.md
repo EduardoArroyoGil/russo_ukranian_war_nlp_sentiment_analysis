@@ -94,23 +94,10 @@ CLICK ME
 <br />
 <div align="center">
   <a href="https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis">
-    <img src="images/readme/repo_icon_2.png" alt="Logo" width="200" height="200">
+    <img src="images/readme/politician-icon.png" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis">View Demo</a>
-    ·
-    <a href="https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis/issues">Request Feature</a>
-  </p>
+  <h3 align="center">Russo-Ukranian War Sentiment Analysis</h3>
 </div>
 
 
@@ -126,18 +113,13 @@ CLICK ME
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+      <a href="#getting-started">Objectives</a>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#usage">Methodology</a></li>
+    <li><a href="#roadmap">Repository Structure</a></li>
+    <li><a href="#contributing">Conclusions</a></li>
+    <li><a href="#contributing">Needed Libraries</a></li>
+    <li><a href="#contributing">Contact</a></li>
   </ol>
 </details>
 
@@ -227,22 +209,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -276,25 +242,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+Project Link: [https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis](https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -315,15 +263,3 @@ Use this space to list resources you find helpful and would like to give credit 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/eduardo-arroyo/
 [product-screenshot]: images/screenshot.png
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
