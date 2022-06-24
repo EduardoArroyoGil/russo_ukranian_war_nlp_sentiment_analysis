@@ -39,7 +39,7 @@ Link al dashbaord [Dashboard](https://public.tableau.com/app/profile/eduardo.arr
     <img src="images/readme/politician-icon.png" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">Russo-Ukranian War Sentiment Analysis</h3>
+  <h3 align="center">Russo-Ukrainian War Sentiment Analysis</h3>
 </div>
 
 [Presentation](https://docs.google.com/presentation/d/1fxxxqB1LBgWhg2PB84cYwxWtmVlDILNVrjqV_6a3i-Y/edit?usp=sharing)
