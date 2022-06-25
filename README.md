@@ -107,18 +107,18 @@ las principales tecnollogias que se han utilizado para la realizacion de este pr
 <!-- Objectives -->
 ## Objectives
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+**Reason**: Interest on Politics and its relation with the psychology and the complexity of the Language and its connection with the reality.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+**Objective**: Analyse the Russo-Ukrainian War usage on Twitter by the Politician & Political Parties and general public
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Methodology -->
 ## Methodology
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The methodology to get the final solution is explained in the following image:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+![](images/readme/Screenshot 2022-06-25 at 07.43.02.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -134,9 +134,17 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- Conclusions -->
 ## Conclusions
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The two most active political parties on Twitter are PSOE and VOX:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+PSOE may be for being in government, however VOX would not be explained by this.
+
+The use that the PSOE makes of this topic is by making comments that convey emotions typically classified as positive or order-oriented and VOX negative or disorder-oriented. This can be explained because VOX does not govern and the PSOE does and the intentions of each one of them are the opposite.
+
+We see that there is a clear tendency towards two sentiments in a generic way, Anger and Pride, from the part of the general public. This may be explained by the polarization also observed in political parties. However, we cannot guarantee that:
+* Political tweets influence general opinion
+* General public tweets influence political tweets
+* Both at the same time
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -144,9 +152,15 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- Needed Libraries -->
 ## Needed Libraries
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Main libraries to develop this project in python are:
+* **pandas**: to manage dataframes
+* **openai**: to connect to OpenAI GPT3 API
+* **request**: to connect to APIs
+* **tweepy**: to connect to Twitter API
+* **tqdm**: to understand how much time code will take in each launch
+* **time**: for time calculus
+* **dotenv**: to manage .env files
+* **SQLAlchemy**: to connect to data base
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
