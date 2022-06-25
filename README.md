@@ -1,6 +1,5 @@
 # Russo-Ukranian War Sentiment Analysis
 
-Link al dashbaord [Dashboard](https://public.tableau.com/app/profile/eduardo.arroyo.gil/viz/russo-ukranianwar-politicalsentimentanalysis/Summary?publish=yes)
 
 
 
@@ -42,8 +41,6 @@ Link al dashbaord [Dashboard](https://public.tableau.com/app/profile/eduardo.arr
   <h3 align="center">Russo-Ukrainian War Sentiment Analysis</h3>
 </div>
 
-[Presentation](https://docs.google.com/presentation/d/1fxxxqB1LBgWhg2PB84cYwxWtmVlDILNVrjqV_6a3i-Y/edit?usp=sharing)
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -73,19 +70,21 @@ Link al dashbaord [Dashboard](https://public.tableau.com/app/profile/eduardo.arr
   </a>
 </div>
 
-Este proyecto trata de analizar mediante una inteligencia artificial el sentimiento 
-de los tweets emitidos sobre la guerra de ucrania. Principalmente el uso que han dado
-los partidos politicos españoles a este tema para usarlo en su beneficio.
+This project tries to analyze through artificial intelligence the feeling
+of the tweets issued about the war in Ukraine. Mainly the use they have given
+Spanish political parties to this issue to use it to their advantage.
+As well as the impact on the population.
 
-Asi como el impacto en la poblacion.
+For this, searches have been made on twitter under the concepts:
 
-Para ello se han realizado busquedas en twitter bajo los conceptos:
-
-*  Guerra de Ucrania
+* Guerra de Ucrania
 * Ukraine War
 * Putin
 * Ucrania
 * Guerra Putin
+
+Link to final [Dashboard](https://public.tableau.com/app/profile/eduardo.arroyo.gil/viz/russo-ukranianwar-politicalsentimentanalysis/Summary?publish=yes)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -93,7 +92,7 @@ Para ello se han realizado busquedas en twitter bajo los conceptos:
 
 ### Built With
 
-las principales tecnollogias que se han utilizado para la realizacion de este proyecto son:
+The main technologies that have been used to carry out this project are: concepts:
 
 * Python
 * Twitter
@@ -170,6 +169,10 @@ Main libraries to develop this project in python are:
 Eduardo Arroyo Gil - [LinkedIn](https://www.linkedin.com/in/eduardo-arroyo/) - eduardoarroyogil@gmail.com
 
 Project Link: [https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis](https://github.com/EduardoArroyoGil/russo_ukranian_war_nlp_sentiment_analysis)
+
+
+This project has been explained deeper in this [Presentation](https://docs.google.com/presentation/d/1fxxxqB1LBgWhg2PB84cYwxWtmVlDILNVrjqV_6a3i-Y/edit?usp=sharing)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
