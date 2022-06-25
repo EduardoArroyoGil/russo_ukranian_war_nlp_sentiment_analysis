@@ -124,9 +124,24 @@ The methodology to get the final solution is explained in the following image:
 <!-- Repository Structure -->
 ## Repository Structure
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+The folder that manage the whole project are:
+* **credentials**: where vevry token or credential is stored under the .env file.
+* **dashboard**: where tableau dashboards are stored.
+* **data**: every data generated, used or read is stored in here.
+  * **master_data**: the master data manually obtained.
+  * **production**: production data which is stored in DB.
+  * **sample**: a sample of production data to test goals.
+  * **sandbox**: a sandbox folder to generate dirty data and dummy data.
+* **elts**: the main etls that make the project easier to run and mange, connections to twitter, data base & OpenAI and the main transformations layers.
+* **images**: images used for the whole project.
+  * **presentation**: images used for the [presentation](https://docs.google.com/presentation/d/1fxxxqB1LBgWhg2PB84cYwxWtmVlDILNVrjqV_6a3i-Y/edit?usp=sharing).
+  * **readme**: images used for this readme file.
+* **logs**: folder to store every log of each run.
+* **openai_module**: module where every main functions and classes to connect to OpenAI API and transformation based on it.
+* **twitter_module**: module where every main functions and classes to connect to Twitter API and transformation based on it.
+* **transformer_module**: module where every transformer is stored and the code to generate them (next steps of the project).
+* **tools**: the main tools developed for make the project more agile
+  * **db**: tool to connect, write and read from data base.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -160,6 +175,7 @@ Main libraries to develop this project in python are:
 * **time**: for time calculus
 * **dotenv**: to manage .env files
 * **SQLAlchemy**: to connect to data base
+* **logging**: to manage the logs of the code
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
