@@ -51,12 +51,12 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#getting-started">Objectives</a></li>
-    <li><a href="#usage">Methodology</a></li>
-    <li><a href="#roadmap">Repository Structure</a></li>
-    <li><a href="#contributing">Conclusions</a></li>
-    <li><a href="#contributing">Needed Libraries</a></li>
-    <li><a href="#contributing">Contact</a></li>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#repository-structure">Repository Structure</a></li>
+    <li><a href="#conclusions">Conclusions</a></li>
+    <li><a href="#needed-libraries">Needed Libraries</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
